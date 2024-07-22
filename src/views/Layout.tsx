@@ -6,8 +6,8 @@ const Layout: React.FC = () => (
     <header>
       <nav>
         <NavLink to='/'>Home</NavLink>
-        <NavLink to='/other-page'>Other Page</NavLink>
-        <NavLink to='/things'>Things</NavLink>
+        <NavLink to='/events'>Events</NavLink>
+        <NavLink to='/partners'>Partners</NavLink>
       </nav>
     </header>
     <main>
