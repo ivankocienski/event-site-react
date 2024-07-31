@@ -1,8 +1,10 @@
 import { useAppDispatch, useAppSelector } from "../data/hooks";
-import { incremented, decremented, reset } from "../data/features/counterSlice";
+import { incremented, decremented, reset, fetchCounts } from "../data/features/counterSlice";
 
 function EventsIndex() {
   const counterValue = useAppSelector( state => state.counter.value );
+  const partnerCount = useAppSelector( state => state.counter.numPartners );
+  const eventCount = useAppSelector( state => state.counter.numEvents );
   const dispatch = useAppDispatch();
 
   function handleIncrementClick() {
@@ -17,6 +19,10 @@ function EventsIndex() {
     dispatch(reset());
   }
 
+  function handleFetchCountsClick() {
+    dispatch(fetchCounts());
+  }
+
   return (
     <>
       <h1>A EventsIndex thing</h1>
@@ -25,6 +31,11 @@ function EventsIndex() {
         <button onClick={handleIncrementClick}>++</button>
         <button onClick={handleDecrementedClick}>--</button>
         <button onClick={handleResetClick}>=0</button>
+      </div>
+      <h2>More things</h2>
+      <p>Partner Count: {partnerCount}, Event Count: {eventCount}</p>
+      <div>
+        <button onClick={handleFetchCountsClick}>Fetch Counts!</button>
       </div>
     </>
   )
