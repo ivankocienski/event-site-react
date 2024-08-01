@@ -1,8 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
+import partnerReducer from './features/partnerSlice';
 
 const reducer = {
-  counter: counterReducer
+  counter: counterReducer,
+  partner: partnerReducer
 };
 
 /*
