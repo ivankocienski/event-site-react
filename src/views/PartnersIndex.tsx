@@ -23,7 +23,7 @@ function PartnersIndex() {
         {partnerAbbrList.map( 
           partner => 
             <li key={partner.id}>
-              <h2>{partner.name}</h2>
+              <h2><a href={`/partners/${partner.id}`}>{partner.name}</a></h2>
               <p>{partner.summary}</p>
             </li>
         )}

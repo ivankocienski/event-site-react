@@ -9,6 +9,7 @@ import Layout from './views/Layout';
 import Root from './views/Root';
 import EventsIndex from './views/EventsIndex';
 import PartnersIndex from './views/PartnersIndex';
+import PartnerShow from './views/PartnerShow';
 import About from './views/About';
 
 import {
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
         <Route index element={<Root />} />
         <Route path='/events' element={<EventsIndex />} />
         <Route path='/partners' element={<PartnersIndex />} />
+        <Route path='/partners/:id' element={<PartnerShow />} />
         <Route path='/about' element={<About />} />
     </Route>
   )
@@ -44,3 +46,18 @@ ReactDOM
       </Provider>
     </React.StrictMode>,
   );
+
+/*   const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route
+        path='/'
+        element={<Layout />}>
+  
+          <Route index element={<Root />} />
+          <Route path='/events' element={<EventsIndex />} />
+          <Route path='/partners' element={<PartnersIndex />} />
+          <Route path='/partners/:id' element={<PartnerShow />} />
+          <Route path='/about' element={<About />} />
+      </Route>
+    )
+  ); */
