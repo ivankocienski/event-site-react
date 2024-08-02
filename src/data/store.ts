@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './features/counterSlice';
 import partnerReducer from './features/partnerSlice';
+import { apiSlice } from './features/eventSlice';
 
 const reducer = {
   counter: counterReducer,
-  partner: partnerReducer
+  partner: partnerReducer,
+  [apiSlice.reducerPath]: apiSlice.reducer
 };
 
 /*
@@ -12,7 +14,11 @@ reducers are combined automatically with combineReducer when an object is sent i
 */
 
 const store = configureStore({
-  reducer: reducer
+  reducer: reducer,
+  middleware: getDefaultMiddlewear => {
+    return getDefaultMiddlewear()
+      .concat(apiSlice.middleware);
+  }
 });
 
 export default store;

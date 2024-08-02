@@ -1,42 +1,44 @@
-import { useAppDispatch, useAppSelector } from "../data/hooks";
-import { incremented, decremented, reset, fetchCounts } from "../data/features/counterSlice";
+import { useAppDispatch } from "../data/hooks";
+import { useFetchEventsQuery } from '../data/features/eventSlice';
 
 function EventsIndex() {
-  const counterValue = useAppSelector( state => state.counter.value );
-  const partnerCount = useAppSelector( state => state.counter.numPartners );
-  const eventCount = useAppSelector( state => state.counter.numEvents );
   const dispatch = useAppDispatch();
+  const { data = [], isFetching } = useFetchEventsQuery();
 
-  function handleIncrementClick() {
-    dispatch(incremented());
-  }
+  function eventTable() {
+    if(data.length == 0) return;
 
-  function handleDecrementedClick() {
-    dispatch(decremented());
-  }
-
-  function handleResetClick() {
-    dispatch(reset());
-  }
-
-  function handleFetchCountsClick() {
-    dispatch(fetchCounts());
+    return (
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>summary</th>
+            <th>start date</th>
+            <th>organiser ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map( (row, index) => 
+            <tr key={index}>
+              <td>{row.id}</td>
+              <td>{row.summary}</td>
+              <td>{typeof row.startDate.toDateString}</td>
+              <td>{row.organizer.id}</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    )
   }
 
   return (
     <>
       <h1>A EventsIndex thing</h1>
-      <p>Count: {counterValue} </p>
-      <div>
-        <button onClick={handleIncrementClick}>++</button>
-        <button onClick={handleDecrementedClick}>--</button>
-        <button onClick={handleResetClick}>=0</button>
-      </div>
-      <h2>More things</h2>
-      <p>Partner Count: {partnerCount}, Event Count: {eventCount}</p>
-      <div>
-        <button onClick={handleFetchCountsClick}>Fetch Counts!</button>
-      </div>
+      <p>data.lenth={data.length}</p>
+      <p>isFetching={isFetching ? 'Yes' : 'No'}</p>
+
+      {eventTable()}
     </>
   )
 }
