@@ -1,0 +1,36 @@
+.events-index {
+
+    // day navigation
+    .day-nav-links {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+
+        .nav {
+            display: inline-block;
+            background-color: #aaa;
+            padding: 1em;
+            border-radius: 100vmax;
+        }
+
+        a.nav:hover {
+            background-color: #fff;
+        }
+
+        span.nav {
+            background-color: #ddd;
+        }
+    }
+
+    // event card
+    .event-card {
+        display: flex;
+        gap: 1em;
+        margin-top: 1em;
+
+        .icon {
+            width: 2em;
+        }
+
+    }
+}
