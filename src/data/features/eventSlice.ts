@@ -1,28 +1,7 @@
 // import { createSlice } from '@reduxjs/toolkit';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-// very important!
+import { Event, EventAbbr } from '../types';
 
-/* interface Event {
-    id: number;
-    name: string;
-    description: string;
-    summary:string;
-    startDate: Date;
-    endDate: Date;
-    publisherUrl: string;
-    address: {
-        streetAddress: string;
-        postalCode: string;
-    };
-    organizer: { id: number };
-} */
-
-interface EventAbbr {
-    id: number;
-    summary: string;
-    startDate: Date;
-    organizer: { id: number }
-}
 
 export const apiSlice = createApi({
     reducerPath: 'api',
@@ -34,13 +13,14 @@ export const apiSlice = createApi({
         //}
     }),
     endpoints: builder => ({
-        fetchEvents: builder.query<EventAbbr[], void>({ // fetchEvents: builder.query<EventAbbr [], number>   <-- for taking arguments
-            // query(limit) {
-            //     return `/events?limit=${limit}`;
-            // }
+        fetchEvents: builder.query<EventAbbr[], void>({
             query: () => '/events'
+        }),
+
+        fetchSingleEvent: builder.query<Event, number>({
+            query: id => `/evenst/${id}`
         })
     })
 });
 
-export const { useFetchEventsQuery } = apiSlice;
+export const { useFetchEventsQuery, useFetchSingleEventQuery } = apiSlice;
