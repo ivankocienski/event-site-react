@@ -1,10 +1,11 @@
 
 import { EventAbbr } from '../data/types';
 import { onSameDay } from '../common/DateAndTime';
+import strfime from 'strftime';
 
 type OnLinkClickHandler = (event: React.MouseEvent) => void;
-type ClickHandlerGenerator = (dateString: string) => OnLinkClickHandler;
-type DateMapType = Record<string, boolean>;
+type ClickHandlerGenerator = (day: Date) => OnLinkClickHandler;
+type DateMapType = Record<string, Date>;
 
 interface DayNavigationLinkProps {
     events: EventAbbr[],
@@ -20,25 +21,28 @@ export default function ( { events, currentDay, clickHandlerGenerator }: DayNavi
             if (dateString in dateMap) {
                 return dateMap;
             }
-            dateMap[dateString] = true;
+            dateMap[dateString] = event.startDate;
             return dateMap;
         }, {});
 
-    const dayLinkElement = (dateString: string, key: number): JSX.Element => {
-        const dayDate = new Date(dateString);
+    const dayLinkElement = (dayDate: Date, key: number): JSX.Element => {
 
+        // const dayString = strfime('%A %-d %B, %Y', dayDate);
+        const dayString = strfime('%A %-d', dayDate);
         if (onSameDay(dayDate, currentDay)) {
-            return <span className='nav' key={key}>{dateString}</span>;
+            return <span className='nav' key={key}>{dayString}</span>;
         }
 
         return (
-            <a className='nav' key={key} href='#' onClick={clickHandlerGenerator(dateString)}>{dateString}</a>
+            <a className='nav' key={key} href='#' onClick={clickHandlerGenerator(dayDate)}>{dayString}</a>
         );
     }
 
+    const next7Days = Object.values(dayDates).slice(0, 7);
+
     return (
         <div className='day-nav-links'>
-            {Object.keys(dayDates).slice(0, 7).map(dayLinkElement)}
+            {next7Days.map(dayLinkElement)}
         </div>
     );
 }

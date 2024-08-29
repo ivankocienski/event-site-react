@@ -41,18 +41,18 @@ function EventsIndex() {
       );
     }
 
-  const makeDayFilterHandlerFor = (dayString: string): OnClickHandlerType => {
-    const dateToSet = new Date(dayString);
+  const makeDayFilterHandlerFor = (day: Date): OnClickHandlerType => {
+    const dateParamString = strfime('%Y-%m-%d', day)
 
     return (event: React.MouseEvent) => {
       event.preventDefault();
-      console.log("nav link clicked: ", dateToSet);
+      console.log("nav link clicked: ", dateParamString);
 
       setSearchParams({
-        day: dayString
-      });  /* , { replace: true } ); */
+        day: dateParamString
+      });
 
-      setCurrentDay(dateToSet);
+      setCurrentDay(day);
     };
   }
 
