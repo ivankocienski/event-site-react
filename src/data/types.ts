@@ -4,6 +4,15 @@ export interface Summary {
   eventCount: number;
 }
 
+export interface Address {
+  streetAddress: string;
+  postalCode: string;
+}
+
+export interface Organizer {
+  id: number;
+}
+
 export interface Event {
   id: number;
   name: string;
@@ -12,18 +21,15 @@ export interface Event {
   startDate: Date;
   endDate: Date;
   publisherUrl: string;
-  address: {
-      streetAddress: string;
-      postalCode: string;
-  };
-  organizer: { id: number };
+  address: Address;
+  organizer: Organizer;
 }
 
 export interface EventAbbr {
   id: number;
   summary: string;
   startDate: Date;
-  organizer: { id: number }
+  organizer: Organizer;
 }
 
 export function mapToEventAbbr(events: any[]): EventAbbr[] {
